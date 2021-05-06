@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="_template.xhtml">
+
+	<f:metadata>
+		<f:viewParam value="#{pessoaFisicaBean.idPessoa}" name="idPessoa"/>
+		<f:viewAction action="#{pessoaFisicaBean.inicializar}"/>
+	</f:metadata>
+	
+	<ui:define name="titulo">
+		<p:outputLabel value="Prova Vialaser - Pessoa Física "/>
+	</ui:define>
+	
+	<ui:define name="conteudo">
+		<h:form id="formPessoaFisica">
+			<p:messages id="messagePessoaFisica" showDetail="true" closable="true"/>
+			<p:panelGrid columns="2">
+				<p:outputLabel for="nome" value="Nome: "/>
+				<p:inputText id="nome"
+							 required="true"
+							 value="#{pessoaFisicaBean.pessoaFisica.nome}"/>
+				
+				<p:outputLabel for="cpf" value="CPF: "/>
+				<p:inputMask id="cpf"
+							 required="true"
+							 mask="999.999.999-99" 
+							 value="#{pessoaFisicaBean.pessoaFisica.cpf}"/>
+				
+				<p:outputLabel for="dataNascimento" value="Data de Nascimento: "/>
+				<p:calendar id="dataNascimento" 
+							required="true"
+							value="#{pessoaFisicaBean.pessoaFisica.dataNascimento}"
+							pattern="dd/MM/yyyy"
+							mask="true"
+							showOn="button"/>
+				
+				<p:outputLabel for="telefone" value="Telefone: "/>
+				<p:inputText id="telefone"
+							 required="true" 
+							 value="#{pessoaFisicaBean.pessoaFisica.telefone}"/>
+				
+				<p:outputLabel for="email" value="E-Mail: "/>
+				<p:inputText id="email"
+							 required="true"
+							 value="#{pessoaFisicaBean.pessoaFisica.email}"/>
+			
+				<p:commandButton value="Salvar" 
+								 process="@form"
+								 update="@form"
+								 action="#{pessoaFisicaBean.salvar()}"/>
+			</p:panelGrid>
+					
+		</h:form>
+		
+	</ui:define>
+	
+</ui:composition>
+
+
+</html>

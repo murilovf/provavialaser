@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="_template.xhtml">
+	
+	<ui:define name="titulo">
+		<p:outputLabel value="Prova Vialaser"/>
+	</ui:define>
+	
+	<ui:define name="conteudo">
+		<h:form>
+			<p:panelGrid columns="2">
+				<p:selectOneRadio value="#{pessoaBean.tipoPessoa}">
+					<f:selectItem itemLabel="Física" itemValue="#{pessoaBean.pessoaFisica}" />
+					<f:selectItem itemLabel="Juridica" itemValue="#{pessoaBean.pessoaJuridica}"/>
+				</p:selectOneRadio>
+			
+				<p:commandButton value="Cadastrar nova pessoa" 
+								 process="@form"
+								 action="#{pessoaBean.cadastrarNovaPessoa()}"/>
+			</p:panelGrid>
+			
+			<p:spacer height="1%"/>
+			
+			<p:tabView id="accordionPessoa">
+				<p:tab id="tabPessoaFisica" title="Pessoa Física">
+					<p:dataTable id="dataTablePessoaFisica"
+                                 var="pessoaFisica"
+                                 value="#{pessoaBean.listaPessoaFisica}"
+                                 paginator="true"
+                                 paginatorPosition="bottom"
+                                 paginatorAlwaysVisible="false"
+                                 rows="10"
+                                 emptyMessage=""
+                                 reflow="true">
+                                   
+						<p:column headerText="Ação">
+                        	<p:commandLink title="Editar pessoa">
+                        		<i class="fas fa-edit"/>
+                        	</p:commandLink>
+                        	<p:commandLink title="Excluir pessoa">
+                        		<i class="fa fa-remove fa-lg"/>
+                        	</p:commandLink>
+                        </p:column>
+                        
+                        <p:column headerText="Nome" filterBy="#{pessoaFisica.nome}" filterMatchMode="contains">
+                        	<h:outputText value="#{pessoaFisica.nome}" />
+                        </p:column>
+                        
+                        <p:column headerText="CPF" filterBy="#{pessoaFisica.cpf}" filterMatchMode="contains">
+                        	<h:outputText value="#{pessoaFisica.cpf}" />
+                        </p:column>
+                   </p:dataTable>
+				</p:tab>
+					
+				<p:tab id="tabPessoaJuridica" title="Pessoa Juridica">
+					<p:dataTable id="dataTablePessoaJuridica"
+                                 var="pessoaJuridica"
+                                 value="#{pessoaBean.listaPessoaJuridica}"
+                                 paginator="true"
+                                 paginatorPosition="bottom"
+                                 paginatorAlwaysVisible="false"
+                                 rows="10"
+                                 emptyMessage=""
+                                 reflow="true">
+                                   
+						<p:column headerText="Ação">
+                        	<p:commandLink title="Editar pessoa">
+                        		<i class="fa fa-pencil fa-lg"/>
+                        	</p:commandLink>
+                        	<p:commandLink title="Excluir pessoa">
+                        		<i class="fa fa-remove fa-lg"/>
+                        	</p:commandLink>
+                        </p:column>
+                        
+                        <p:column headerText="Razão Social" filterBy="#{pessoaJuridica.razaoSocial}" filterMatchMode="contains">
+                        	<h:outputText value="#{pessoaJuridica.razaoSocial}" />
+                        </p:column>
+                        
+                        <p:column headerText="Nome Fantasia" filterBy="#{pessoaJuridica.nomeFantasia}" filterMatchMode="contains">
+                        	<h:outputText value="#{pessoaJuridica.nomeFantasia}" />
+                        </p:column>
+                        
+                         <p:column headerText="CNPJ" filterBy="#{pessoaJuridica.nomeFantasia}" filterMatchMode="contains">
+                        	<h:outputText value="#{pessoaJuridica.cnpj}" />
+                        </p:column>
+                   </p:dataTable>
+					
+				</p:tab>
+			</p:tabView>
+			
+		</h:form>
+		
+	</ui:define>
+	
+</ui:composition>
+
+
+</html>

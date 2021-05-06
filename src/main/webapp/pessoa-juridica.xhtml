@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="_template.xhtml">
+
+	<f:metadata>
+		<f:viewParam value="#{pessoaJuridicaBean.idPessoa}" name="idPessoa"/>
+		<f:viewAction action="#{pessoaJuridicaBean.inicializar}"/>
+	</f:metadata>
+	
+	<ui:define name="titulo">
+		<p:outputLabel value="Prova Vialaser - Pessoa Jurídica "/>
+	</ui:define>
+	
+	<ui:define name="conteudo">
+		<h:form id="formPessoaJuridica">
+			<p:messages id="messagePessoaJuridica" showDetail="true" closable="true"/>
+			<p:panelGrid columns="2">
+				<p:panelGrid columns="2">
+					<p:outputLabel for="razaoSocial" value="Razão Social: "/>
+					<p:inputText id="razaoSocial"
+								 required="true"
+								 value="#{pessoaJuridicaBean.pessoaJuridica.razaoSocial}"/>
+				
+					<p:outputLabel for="nomeFantasia" value="Nome Fantasia: "/>
+					<p:inputText id="nomeFantasia"
+								 required="true"
+								 value="#{pessoaJuridicaBean.pessoaJuridica.nomeFantasia}"/>
+				
+					<p:outputLabel for="cnpj" value="CNPJ: "/>
+					<p:inputMask id="cnpj"
+								 required="true"
+								 mask="99.999.999/9999-99" 
+								 value="#{pessoaJuridicaBean.pessoaJuridica.cnpj}"/>
+				
+					<p:outputLabel for="site" value="Site: "/>
+					<p:inputText id="site"
+								 required="true"
+								 value="#{pessoaJuridicaBean.pessoaJuridica.site}"/>
+				
+					<p:commandButton value="Salvar" 
+									 process="@form"
+									 update="@form"
+									 action="#{pessoaJuridicaBean.salvar()}"/>
+								 
+				</p:panelGrid>
+				<p:panel id="panelTelefones">
+					<p:outputLabel for="telefones" value="Telefones: "/>
+					
+					<p:inputText id="telefones"
+								 value="#{pessoaJuridicaBean.novoTelefone}"/>
+								 
+					<p:commandButton value="Adicionar" 
+									 process="panelTelefones"
+									 update="panelTelefones"
+									 action="#{pessoaJuridicaBean.adicionarTelefone()}"/>
+									 
+					<p:dataList id="dataListTelefones"
+								value="#{pessoaJuridicaBean.pessoaJuridica.telefones}"
+								var="tel"
+								emptyMessage="Não existem telefones adicionados">
+								
+						<p:outputLabel value="#{tel.telefone}" />
+						
+						<p:commandLink style="text-decoration:none" title="Excluir telefone" 
+									   action="#{pessoaJuridicaBean.removerTelefone(tel)}"
+									   process="dataListTelefones"
+									   update="dataListTelefones" >
+                        		<i style="color: red" class="fa fa-remove fa-lg"/>
+                        </p:commandLink>
+						
+						
+													
+					</p:dataList>
+				</p:panel>
+			</p:panelGrid>
+		
+		</h:form>
+		
+	</ui:define>
+	
+</ui:composition>
+
+
+</html>
